@@ -73,6 +73,9 @@ This is the recommended way to deploy Vite apps.
      pages: write
      id-token: write
 
+   env:
+     FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
    jobs:
      build-and-deploy:
        runs-on: ubuntu-latest
@@ -83,8 +86,7 @@ This is the recommended way to deploy Vite apps.
          - name: Set up Node
            uses: actions/setup-node@v4
            with:
-             node-version: 20
-             cache: 'npm'
+             node-version: 24
 
          - name: Install dependencies
            run: npm install
@@ -112,5 +114,5 @@ This is the recommended way to deploy Vite apps.
 2. Once finished, go to **Settings > Pages** to find your live URL.
 
 ---
-*Guide created on Thu, 26 Mar 2026 09:59:11 UTC*
+*Guide created on Thu, 26 Mar 2026 10:34:43 UTC*
 *Made with ❤️ from Sudhir Kumar Thanna to everyone*
