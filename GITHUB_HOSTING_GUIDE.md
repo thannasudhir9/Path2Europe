@@ -12,7 +12,7 @@ This guide provides step-by-step instructions to host your project on GitHub and
 ## Step 1: Create a GitHub Repository
 1. Log in to [GitHub](https://github.com/).
 2. Click the **+** icon in the top right and select **New repository**.
-3. Name your repository (e.g., `path-to-europe`).
+3. Name your repository (e.g., `Path2Europe`).
 4. Choose **Public** or **Private**.
 5. Click **Create repository**.
 
@@ -33,7 +33,7 @@ If you are working locally, follow these steps in your project root:
    ```
 4. Link to your GitHub repository:
    ```bash
-   git remote add origin https://github.com/YOUR_USERNAME/path-to-europe.git
+   git remote add origin https://github.com/YOUR_USERNAME/Path2Europe.git
    ```
 5. Push to GitHub:
    ```bash
@@ -42,13 +42,13 @@ If you are working locally, follow these steps in your project root:
    ```
 
 ## Step 3: Configure Vite for GitHub Pages
-If your project will be hosted at `https://YOUR_USERNAME.github.io/path-to-europe/`, you need to update `vite.config.ts`:
+If your project will be hosted at `https://YOUR_USERNAME.github.io/Path2Europe/`, you need to update `vite.config.ts`:
 
 1. Open `vite.config.ts`.
 2. Add the `base` property:
    ```typescript
    export default defineConfig({
-     base: '/path-to-europe/', // Replace with your repository name
+     base: '/Path2Europe/', // Replace with your repository name
      plugins: [react(), tailwindcss()],
      // ... other config
    });
@@ -114,5 +114,5 @@ This is the recommended way to deploy Vite apps.
 2. Once finished, go to **Settings > Pages** to find your live URL.
 
 ---
-*Guide created on Thu, 26 Mar 2026 10:34:43 UTC*
+*Guide created on Thu, 26 Mar 2026 10:42:04 UTC*
 *Made with ❤️ from Sudhir Kumar Thanna to everyone*
