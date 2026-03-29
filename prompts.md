@@ -33,6 +33,35 @@ This file tracks the evolution of the project through natural language prompts.
         - CRM Integrations (Salesforce, HubSpot)
         - Student/User Portal
 15. **HashRouter Fix:** Switched from `BrowserRouter` to `HashRouter` to fix blank page issues on GitHub Pages and other static hosting environments. Refactored `Navbar` to use `useLocation` and `useNavigate` hooks for more robust navigation.
+16. **Payment Page Integration:**
+    - Created a dedicated `PaymentPage` component with UPI integration (Mobile: 9000668360).
+    - Implemented dynamic QR code generation for UPI payments.
+    - Added support for applying discount codes (`StudentOffer`, `ExperiencedOffer`) directly on the payment page.
+    - Linked "Upgrade Now" and "Start Mentorship" buttons to the secure payment flow.
+
+17. **FAQ, Webinar & Payment Corrections:**
+    - Added a new **FAQ Tab** with common questions about Salesforce and EU visas.
+    - Added a **Webinar Tab** for recurring live sessions (Sat/Sun, 5-6 PM IST).
+    - Integrated Google Calendar (`https://calendar.app.google/rgAKRWjV8mS6y5bD6`) and Google Meet (`https://meet.google.com/gyw-fqrm-vbg`) links.
+    - Corrected UPI and Bank details in the `PaymentPage` (UPI: `9000668360@jupiteraxis`).
+    - Updated the Navbar and Landing Page to include the new sections.
+
+18. **Registration & Webinar Enhancements:**
+    - Created a dedicated `WebinarRegistrationPage` (`#/register`) with full name, email, and phone capture.
+    - Integrated registration data into the Admin CRM with a new tabbed navigation system (`leads`, `webinar`, `docs`).
+    - Added automated success flow with WhatsApp group links and calendar integration.
+    - Updated the Webinar section with direct Google Meet and Calendar links and a registration CTA.
+    - Corrected all UPI and bank transfer details on the payment page (UPI: `9000668360@jupiteraxis`).
+
+19. **Webinar & Documentation Update:**
+    - Updated all WhatsApp links to the official group link (`chat.whatsapp.com/K5ocM7obWynAUnCg3CalBE`).
+    - Verified and updated the webinar schedule (Sat/Sun, 5-6 PM IST) and Google Meet link (`meet.google.com/gyw-fqrm-vbg`).
+    - Updated `PROJECT_DOCUMENTATION.md` and `prompts.md` with the latest details.
+
+20. **Payment Tab & Verification Update:**
+    - Added a "Payment" tab to the main navigation bar for direct access to the payment page.
+    - Added a mandatory bold message on the payment page: "**Please send a screenshot of the payment once done, so that we can activate you and give access to the portal for all access.**"
+    - Added the official email ID (`pathtoeurope.eu@gmail.com`) to the "Need Help?" section on the payment page.
 
 ---
-*Last Updated: Sun, 29 Mar 2026 16:02:27 UTC*
+*Last Updated: Sun, 29 Mar 2026 16:56:36 UTC*

@@ -48,7 +48,7 @@ const Navbar = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ["services", "gallery", "pricing", "docs", "testimonials", "about"];
+      const sections = ["services", "pricing", "webinar", "docs", "about", "gallery", "testimonials", "faq"];
       const scrollPosition = window.scrollY + 100;
 
       for (const section of sections) {
@@ -70,11 +70,13 @@ const Navbar = () => {
 
   const navLinks = [
     { name: "Services", href: "#services", id: "services" },
-    { name: "Gallery", href: "#gallery", id: "gallery" },
     { name: "Pricing", href: "#pricing", id: "pricing" },
+    { name: "Webinar", href: "#webinar", id: "webinar" },
     { name: "Docs", href: "#docs", id: "docs" },
-    { name: "Testimonials", href: "#testimonials", id: "testimonials" },
     { name: "About", href: "#about", id: "about" },
+    { name: "Gallery", href: "#gallery", id: "gallery" },
+    { name: "Testimonials", href: "#testimonials", id: "testimonials" },
+    { name: "FAQ", href: "#faq", id: "faq" },
   ];
 
   const isHome = location.pathname === "/";
@@ -129,6 +131,12 @@ const Navbar = () => {
             >
               Admin
             </Link>
+            <Link 
+              to="/payment" 
+              className="relative py-2 transition-colors hover:text-blue-600"
+            >
+              Payment
+            </Link>
             <button 
               onClick={() => {
                 if (!isHome) {
@@ -172,7 +180,7 @@ const Hero = () => (
         </p>
         <div className="flex flex-col sm:flex-row justify-center gap-4">
           <a 
-            href="https://wa.me/919110368346"
+            href="https://chat.whatsapp.com/K5ocM7obWynAUnCg3CalBE"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center justify-center gap-2 bg-green-600 text-white px-8 py-4 rounded-xl font-bold hover:bg-green-700 transition-all shadow-xl shadow-green-100"
@@ -243,6 +251,7 @@ const Pricing = () => {
   const [promoCode, setPromoCode] = useState("");
   const [appliedPromo, setAppliedPromo] = useState<string | null>(null);
   const [discount, setDiscount] = useState(0);
+  const navigate = useNavigate();
 
   const handleApplyPromo = () => {
     if (promoCode === "StudentOffer") {
@@ -256,6 +265,16 @@ const Pricing = () => {
       setAppliedPromo(null);
       setDiscount(0);
     }
+  };
+
+  const handleUpgrade = (pkgName: string, basePrice: number, promo: string | null) => {
+    navigate("/payment", { 
+      state: { 
+        packageName: pkgName, 
+        price: basePrice,
+        appliedPromo: promo
+      } 
+    });
   };
 
   return (
@@ -396,7 +415,7 @@ const Pricing = () => {
               </li>
             </ul>
             <button 
-              onClick={() => document.getElementById('contact-form')?.scrollIntoView({ behavior: 'smooth' })}
+              onClick={() => handleUpgrade("Advanced Training (Freshers)", 4999, appliedPromo === "StudentOffer" ? "StudentOffer" : null)}
               className="w-full py-3 bg-white text-blue-600 font-bold rounded-xl hover:bg-blue-50 transition-all text-sm"
             >
               Upgrade Now
@@ -446,7 +465,7 @@ const Pricing = () => {
               </li>
             </ul>
             <button 
-              onClick={() => document.getElementById('contact-form')?.scrollIntoView({ behavior: 'smooth' })}
+              onClick={() => handleUpgrade("Experienced Pro (Mentorship)", 24999, appliedPromo === "ExperiencedOffer" ? "ExperiencedOffer" : null)}
               className="w-full py-3 bg-blue-600 text-white font-bold rounded-xl hover:bg-blue-700 transition-all text-sm"
             >
               Start Mentorship
@@ -728,6 +747,150 @@ const Testimonials = () => (
     </div>
   </section>
 );
+
+const FAQ = () => {
+  const faqs = [
+    {
+      question: "What is the scope of Salesforce in Europe?",
+      answer: "Salesforce is one of the most in-demand skills in Europe. Companies across all sectors are moving to cloud solutions, creating a massive need for certified administrators, developers, and consultants."
+    },
+    {
+      question: "Do I need a work visa to apply for jobs in Europe?",
+      answer: "If you are from outside the EU, you generally need a work visa. Our consulting includes strategies for the EU Blue Card, which is designed for highly skilled professionals."
+    },
+    {
+      question: "How long does the training take?",
+      answer: "Our Advanced Training is designed to be comprehensive yet efficient, typically taking 8-12 weeks depending on your pace and prior experience."
+    },
+    {
+      question: "Is there a job guarantee?",
+      answer: "While we don't provide a 'guarantee' (as hiring depends on the company), we provide a 1-year free extension if you don't get responses, ensuring we stay with you until you succeed."
+    }
+  ];
+
+  return (
+    <section id="faq" className="py-24 px-4 bg-gray-50">
+      <div className="max-w-4xl mx-auto">
+        <div className="text-center mb-16">
+          <h2 className="text-4xl font-bold text-gray-900 mb-4">Frequently Asked Questions</h2>
+          <p className="text-gray-600">Everything you need to know about your journey to Europe.</p>
+        </div>
+        <div className="space-y-6">
+          {faqs.map((faq, index) => (
+            <div key={index} className="bg-white p-8 rounded-3xl border border-gray-100 shadow-sm hover:shadow-md transition-all">
+              <h3 className="text-xl font-bold text-gray-900 mb-3">{faq.question}</h3>
+              <p className="text-gray-600 leading-relaxed">{faq.answer}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+const Webinar = () => {
+  const navigate = useNavigate();
+  return (
+    <section id="webinar" className="py-24 px-4 bg-blue-600 text-white overflow-hidden relative">
+      <div className="max-w-7xl mx-auto relative z-10">
+        <div className="grid lg:grid-cols-2 gap-16 items-center">
+          <div>
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-500 rounded-full text-sm font-bold mb-6">
+              <Sparkles className="w-4 h-4" />
+              Free Live Webinar
+            </div>
+            <h2 className="text-5xl font-bold mb-8 leading-tight">
+              Master the Path to <br />
+              <span className="text-blue-200 underline decoration-blue-400">European Careers</span>
+            </h2>
+            <p className="text-xl text-blue-100 mb-12 leading-relaxed">
+              Join our exclusive live sessions where we break down the EU job market, 
+              Salesforce opportunities, and the Blue Card process.
+            </p>
+            <div className="space-y-6 mb-12">
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 bg-blue-500 rounded-2xl flex items-center justify-center">
+                  <CheckCircle2 className="w-6 h-6" />
+                </div>
+                <div>
+                  <p className="font-bold">Every Saturday & Sunday</p>
+                  <p className="text-blue-200 text-sm">Evening 5:00 PM - 6:00 PM IST (1:30 PM CET)</p>
+                </div>
+              </div>
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 bg-blue-500 rounded-2xl flex items-center justify-center">
+                  <Globe className="w-6 h-6" />
+                </div>
+                <div>
+                  <p className="font-bold">Online via Google Meet</p>
+                  <a 
+                    href="https://meet.google.com/gyw-fqrm-vbg" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-blue-200 text-sm hover:text-white transition-colors flex items-center gap-1"
+                  >
+                    Join: meet.google.com/gyw-fqrm-vbg
+                    <ExternalLink className="w-3 h-3" />
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div className="flex flex-col sm:flex-row gap-4">
+              <a 
+                href="https://calendar.app.google/rgAKRWjV8mS6y5bD6"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-white text-blue-600 px-10 py-4 rounded-2xl font-bold text-lg hover:bg-blue-50 transition-all shadow-2xl flex items-center justify-center gap-3"
+              >
+                Add to Calendar
+                <ArrowRight className="w-5 h-5" />
+              </a>
+              <button 
+                onClick={() => navigate('/register')}
+                className="bg-blue-500 text-white border-2 border-blue-400 px-10 py-4 rounded-2xl font-bold text-lg hover:bg-blue-400 transition-all flex items-center justify-center gap-3"
+              >
+                Register for Updates
+              </button>
+            </div>
+          </div>
+          <div className="relative">
+            <div className="bg-blue-500/30 backdrop-blur-xl p-8 rounded-[40px] border border-blue-400/30 shadow-2xl">
+              <div className="flex items-center justify-between mb-8">
+                <div className="flex -space-x-4">
+                  {[1,2,3,4].map(i => (
+                    <div key={i} className="w-12 h-12 rounded-full border-4 border-blue-600 bg-blue-400 flex items-center justify-center font-bold">
+                      {String.fromCharCode(64 + i)}
+                    </div>
+                  ))}
+                  <div className="w-12 h-12 rounded-full border-4 border-blue-600 bg-white text-blue-600 flex items-center justify-center font-bold text-xs">
+                    +150
+                  </div>
+                </div>
+                <div className="text-right">
+                  <p className="text-2xl font-bold">LIVE</p>
+                  <p className="text-blue-200 text-xs uppercase tracking-widest">Interactive Session</p>
+                </div>
+              </div>
+              <div className="space-y-4">
+                <div className="h-2 bg-blue-400/30 rounded-full w-full" />
+                <div className="h-2 bg-blue-400/30 rounded-full w-[80%]" />
+                <div className="h-2 bg-blue-400/30 rounded-full w-[90%]" />
+              </div>
+              <div className="mt-12 p-6 bg-white/10 rounded-3xl border border-white/10">
+                <p className="text-sm italic text-blue-100">
+                  "The weekend webinars were a game-changer for my understanding of the German job market. Highly recommended!"
+                </p>
+                <p className="mt-4 font-bold">- Rahul S., Salesforce Developer</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="absolute top-0 right-0 w-96 h-96 bg-blue-400/20 rounded-full blur-3xl -mr-48 -mt-48" />
+      <div className="absolute bottom-0 left-0 w-96 h-96 bg-blue-800/20 rounded-full blur-3xl -ml-48 -mb-48" />
+    </section>
+  );
+};
 
 const ContactForm = () => {
   const [formData, setFormData] = useState({
@@ -1052,13 +1215,13 @@ const FooterBanner = () => (
               Start Your Journey Today
             </button>
             <a 
-              href="https://wa.me/919110368346"
+              href="https://chat.whatsapp.com/K5ocM7obWynAUnCg3CalBE"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-3 text-white/90 font-semibold hover:text-white transition-colors"
             >
               <MessageCircle className="w-6 h-6 text-green-400" />
-              <span>WhatsApp us: +91-9110368346</span>
+              <span>Join WhatsApp Group</span>
             </a>
           </div>
       </div>
@@ -1083,13 +1246,13 @@ const Footer = () => (
           </p>
           <div className="mt-6 space-y-3">
             <a 
-              href="https://wa.me/919110368346"
+              href="https://chat.whatsapp.com/K5ocM7obWynAUnCg3CalBE"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-3 text-blue-400 hover:text-blue-300 transition-colors"
             >
               <MessageCircle className="w-5 h-5 text-green-500" />
-              <span className="font-semibold">+91-9110368346</span>
+              <span className="font-semibold">Join WhatsApp Group</span>
             </a>
             <a 
               href="mailto:pathtoeurope.eu@gmail.com?subject=Inquiry regarding Path to Europe Consulting"
@@ -1143,15 +1306,423 @@ const Footer = () => (
   </footer>
 );
 
+const PaymentPage = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const { packageName, price, appliedPromo: initialPromo } = location.state || { packageName: "Consulting Package", price: 0, appliedPromo: null };
+  
+  const [promoCode, setPromoCode] = useState("");
+  const [appliedPromo, setAppliedPromo] = useState<string | null>(initialPromo);
+  const [discount, setDiscount] = useState(initialPromo === "StudentOffer" ? 1999 : initialPromo === "ExperiencedOffer" ? 2999 : 0);
+  const [isProcessing, setIsProcessing] = useState(false);
+
+  const finalPrice = price - discount;
+
+  const handleApplyPromo = () => {
+    if (promoCode === "StudentOffer") {
+      setAppliedPromo("StudentOffer");
+      setDiscount(1999);
+    } else if (promoCode === "ExperiencedOffer") {
+      setAppliedPromo("ExperiencedOffer");
+      setDiscount(2999);
+    } else {
+      alert("Invalid Promo Code");
+    }
+  };
+
+  const upiId = "9000668360@jupiteraxis";
+  const upiLink = `upi://pay?pa=${upiId}&pn=ThannaSudhirKumar&am=${finalPrice}&cu=INR`;
+  const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(upiLink)}`;
+
+  if (!packageName || price === 0) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-50 p-4">
+        <div className="text-center">
+          <h2 className="text-2xl font-bold mb-4">No package selected</h2>
+          <button onClick={() => navigate("/")} className="text-blue-600 font-bold hover:underline">Go back to Home</button>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen bg-gray-50 pt-32 pb-24 px-4">
+      <div className="max-w-4xl mx-auto">
+        <div className="grid lg:grid-cols-2 gap-12">
+          {/* Order Summary */}
+          <div className="space-y-8">
+            <div>
+              <button 
+                onClick={() => navigate("/")}
+                className="flex items-center gap-2 text-gray-500 hover:text-blue-600 transition-colors mb-8"
+              >
+                <ArrowRight className="w-4 h-4 rotate-180" />
+                Back to Home
+              </button>
+              <h1 className="text-4xl font-bold text-gray-900 mb-2">Secure Payment</h1>
+              <p className="text-gray-600">Complete your enrollment for global career success.</p>
+            </div>
+
+            <div className="bg-white p-8 rounded-[40px] shadow-xl border border-gray-100">
+              <h3 className="text-xl font-bold mb-6 flex items-center gap-2">
+                <CreditCard className="w-6 h-6 text-blue-600" />
+                Order Summary
+              </h3>
+              <div className="space-y-4">
+                <div className="flex justify-between items-center pb-4 border-b border-gray-100">
+                  <div>
+                    <p className="font-bold text-gray-900">{packageName}</p>
+                    <p className="text-sm text-gray-500">Professional Consulting</p>
+                  </div>
+                  <p className="font-bold text-gray-900">₹{price.toLocaleString()}</p>
+                </div>
+
+                {appliedPromo && (
+                  <div className="flex justify-between items-center text-green-600 font-medium">
+                    <p>Discount ({appliedPromo})</p>
+                    <p>-₹{discount.toLocaleString()}</p>
+                  </div>
+                )}
+
+                <div className="pt-4 flex justify-between items-center text-2xl font-bold text-gray-900">
+                  <p>Total Amount</p>
+                  <p>₹{finalPrice.toLocaleString()}</p>
+                </div>
+              </div>
+
+              {!appliedPromo && (
+                <div className="mt-8 pt-8 border-t border-gray-100">
+                  <p className="text-sm font-bold text-gray-700 mb-3">Have a discount code?</p>
+                  <div className="flex gap-2">
+                    <input 
+                      type="text" 
+                      placeholder="Enter code" 
+                      className="flex-grow px-4 py-3 bg-gray-50 border border-gray-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      value={promoCode}
+                      onChange={(e) => setPromoCode(e.target.value)}
+                    />
+                    <button 
+                      onClick={handleApplyPromo}
+                      className="bg-gray-900 text-white px-6 py-3 rounded-2xl font-bold hover:bg-black transition-all"
+                    >
+                      Apply
+                    </button>
+                  </div>
+                  <p className="mt-3 text-xs text-gray-500 italic">
+                    Try "StudentOffer" or "ExperiencedOffer" based on your profile.
+                  </p>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Payment Method */}
+          <div className="space-y-8">
+            <div className="bg-white p-8 rounded-[40px] shadow-xl border border-gray-100 text-center">
+              <div className="mb-6">
+                <div className="w-16 h-16 bg-blue-100 rounded-full mx-auto flex items-center justify-center mb-4">
+                  <Zap className="w-8 h-8 text-blue-600" />
+                </div>
+                <h3 className="text-2xl font-bold text-gray-900">Pay via UPI</h3>
+                <p className="text-gray-500">Scan QR or use UPI ID to pay</p>
+              </div>
+
+              <div className="bg-gray-50 p-6 rounded-3xl border border-gray-100 mb-6 inline-block">
+                <img 
+                  src={qrCodeUrl} 
+                  alt="UPI QR Code" 
+                  className="w-48 h-48 mx-auto rounded-xl shadow-sm"
+                  referrerPolicy="no-referrer"
+                />
+              </div>
+
+              <div className="space-y-4">
+                <div className="p-4 bg-blue-50 border border-blue-100 rounded-2xl">
+                  <p className="text-xs text-blue-600 font-bold uppercase tracking-wider mb-1">Account Holder Name</p>
+                  <p className="text-lg font-bold text-blue-900">Thanna Sudhir Kumar</p>
+                </div>
+                
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="p-4 bg-gray-50 border border-gray-100 rounded-2xl">
+                    <p className="text-xs text-gray-500 font-bold uppercase tracking-wider mb-1">Account Number</p>
+                    <p className="text-md font-bold text-gray-900">77770139291989</p>
+                  </div>
+                  <div className="p-4 bg-gray-50 border border-gray-100 rounded-2xl">
+                    <p className="text-xs text-gray-500 font-bold uppercase tracking-wider mb-1">IFSC Code</p>
+                    <p className="text-md font-bold text-gray-900">FDRL0007777</p>
+                  </div>
+                </div>
+
+                <div className="p-4 bg-gray-50 border border-gray-100 rounded-2xl">
+                  <div className="flex justify-between items-start">
+                    <div>
+                      <p className="text-xs text-gray-500 font-bold uppercase tracking-wider mb-1">Branch & UPI Handle</p>
+                      <p className="text-sm font-bold text-gray-900">Neo Banking - Jupiter</p>
+                      <p className="text-md font-bold text-blue-600 mt-1">{upiId}</p>
+                    </div>
+                    <div className="text-right">
+                      <p className="text-[10px] text-gray-400 font-bold uppercase tracking-wider mb-1">Alt IFSC</p>
+                      <p className="text-xs font-bold text-gray-500">FDRL0000001</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-8">
+                <button 
+                  onClick={() => {
+                    setIsProcessing(true);
+                    setTimeout(() => {
+                      setIsProcessing(false);
+                      alert("Payment verification initiated. Please share the screenshot on WhatsApp for instant confirmation.");
+                      window.open("https://wa.me/919110368346", "_blank");
+                    }, 1500);
+                  }}
+                  disabled={isProcessing}
+                  className="w-full bg-blue-600 text-white py-4 rounded-2xl font-bold text-lg hover:bg-blue-700 transition-all shadow-xl shadow-blue-100 flex items-center justify-center gap-3"
+                >
+                  {isProcessing ? (
+                    <div className="w-6 h-6 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                  ) : (
+                    <>
+                      <CheckCircle2 className="w-6 h-6" />
+                      I've Made the Payment
+                    </>
+                  )}
+                </button>
+                <p className="mt-4 text-xs text-gray-500">
+                  Secure transaction powered by UPI. By paying, you agree to our terms.
+                </p>
+                <div className="mt-6 p-4 bg-blue-50 border-l-4 border-blue-600 rounded-r-2xl">
+                  <p className="text-sm font-bold text-blue-900 leading-relaxed">
+                    Please send a screenshot of the payment once done, so that we can activate you and give access to the portal for all access.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="p-6 bg-yellow-50 border border-yellow-100 rounded-3xl flex gap-4 items-start">
+              <div className="w-10 h-10 bg-yellow-100 rounded-full flex-shrink-0 flex items-center justify-center">
+                <MessageCircle className="w-5 h-5 text-yellow-700" />
+              </div>
+              <div>
+                <p className="font-bold text-yellow-800 text-sm mb-1">Need Help?</p>
+                <p className="text-yellow-700 text-xs leading-relaxed">
+                  If you face any issues during payment, contact us on WhatsApp at +91-9110368346 or email us at <span className="font-bold">pathtoeurope.eu@gmail.com</span>. 
+                  We're available 24/7 to assist you.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const WebinarRegistrationPage = () => {
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: ""
+  });
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isProcessing, setIsProcessing] = useState(false);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsProcessing(true);
+    
+    // Simulate API call
+    setTimeout(() => {
+      const registrations = JSON.parse(localStorage.getItem("webinar_registrations") || "[]");
+      const newRegistration = {
+        ...formData,
+        id: Date.now(),
+        timestamp: new Date().toISOString()
+      };
+      localStorage.setItem("webinar_registrations", JSON.stringify([...registrations, newRegistration]));
+      
+      setIsProcessing(false);
+      setIsSubmitted(true);
+      
+      // Trigger mailto for user confirmation (optional but provides the "email sent" feel)
+      const subject = encodeURIComponent("Webinar Registration Confirmed: Path to Europe");
+      const body = encodeURIComponent(`Hi ${formData.name},\n\nThank you for registering for the Path to Europe Webinar!\n\nWebinar Details:\n- Date: Every Saturday & Sunday\n- Time: 5:00 PM - 6:00 PM IST\n- Link: https://meet.google.com/gyw-fqrm-vbg\n\nJoin our WhatsApp Group for live updates: https://chat.whatsapp.com/your-group-link\n\nSee you there!`);
+      // window.location.href = `mailto:${formData.email}?subject=${subject}&body=${body}`;
+    }, 1500);
+  };
+
+  if (isSubmitted) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          className="max-w-2xl w-full bg-white p-12 rounded-[40px] shadow-2xl border border-gray-100 text-center"
+        >
+          <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-8">
+            <CheckCircle2 className="w-10 h-10 text-green-600" />
+          </div>
+          <h2 className="text-4xl font-bold text-gray-900 mb-4">Registration Successful!</h2>
+          <p className="text-gray-600 mb-12 text-lg">
+            We've sent the webinar details to <span className="font-bold text-blue-600">{formData.email}</span>. 
+            Please check your inbox (and spam folder).
+          </p>
+          
+          <div className="bg-blue-50 p-8 rounded-3xl border border-blue-100 text-left mb-12">
+            <h3 className="text-xl font-bold text-blue-900 mb-6 flex items-center gap-2">
+              <Zap className="w-6 h-6" />
+              Next Steps
+            </h3>
+            <div className="space-y-6">
+              <div className="flex gap-4">
+                <div className="w-10 h-10 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold flex-shrink-0">1</div>
+                <div>
+                  <p className="font-bold text-gray-900">Join WhatsApp Group</p>
+                  <p className="text-sm text-gray-600 mb-3">Get instant updates and session reminders.</p>
+                  <a 
+                    href="https://chat.whatsapp.com/K5ocM7obWynAUnCg3CalBE" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 text-green-600 font-bold hover:underline"
+                  >
+                    <MessageCircle className="w-4 h-4" />
+                    Join Group Now
+                  </a>
+                </div>
+              </div>
+              <div className="flex gap-4">
+                <div className="w-10 h-10 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold flex-shrink-0">2</div>
+                <div>
+                  <p className="font-bold text-gray-900">Add to Calendar</p>
+                  <p className="text-sm text-gray-600 mb-3">Don't miss the session! Add it to your Google Calendar.</p>
+                  <a 
+                    href="https://calendar.app.google/rgAKRWjV8mS6y5bD6" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 text-blue-600 font-bold hover:underline"
+                  >
+                    <BookOpen className="w-4 h-4" />
+                    Add to Calendar
+                  </a>
+                </div>
+              </div>
+              <div className="flex gap-4">
+                <div className="w-10 h-10 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold flex-shrink-0">3</div>
+                <div>
+                  <p className="font-bold text-gray-900">Meeting Link</p>
+                  <p className="text-sm text-gray-600 mb-3">Bookmark the Google Meet link for the session.</p>
+                  <p className="text-sm font-mono bg-white p-2 rounded border border-blue-100 text-blue-600">meet.google.com/gyw-fqrm-vbg</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <button 
+            onClick={() => navigate("/")}
+            className="text-gray-500 font-bold hover:text-blue-600 transition-colors"
+          >
+            Back to Home
+          </button>
+        </motion.div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen bg-gray-50 py-24 px-4">
+      <div className="max-w-2xl mx-auto">
+        <button 
+          onClick={() => navigate("/")}
+          className="flex items-center gap-2 text-gray-500 hover:text-blue-600 transition-colors mb-12"
+        >
+          <ArrowRight className="w-4 h-4 rotate-180" />
+          Back to Home
+        </button>
+
+        <div className="bg-white p-12 rounded-[40px] shadow-2xl border border-gray-100">
+          <div className="text-center mb-12">
+            <div className="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
+              <Users className="w-8 h-8 text-blue-600" />
+            </div>
+            <h1 className="text-4xl font-bold text-gray-900 mb-4">Webinar Registration</h1>
+            <p className="text-gray-600">Join our next live session and start your European journey.</p>
+          </div>
+
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div>
+              <label className="block text-sm font-bold text-gray-700 mb-2">Full Name</label>
+              <input 
+                required
+                type="text" 
+                placeholder="John Doe" 
+                className="w-full px-6 py-4 bg-gray-50 border border-gray-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500"
+                value={formData.name}
+                onChange={(e) => setFormData({...formData, name: e.target.value})}
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-bold text-gray-700 mb-2">Email Address</label>
+              <input 
+                required
+                type="email" 
+                placeholder="john@example.com" 
+                className="w-full px-6 py-4 bg-gray-50 border border-gray-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500"
+                value={formData.email}
+                onChange={(e) => setFormData({...formData, email: e.target.value})}
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-bold text-gray-700 mb-2">Phone Number</label>
+              <input 
+                required
+                type="tel" 
+                placeholder="+91 90000 00000" 
+                className="w-full px-6 py-4 bg-gray-50 border border-gray-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500"
+                value={formData.phone}
+                onChange={(e) => setFormData({...formData, phone: e.target.value})}
+              />
+            </div>
+
+            <button 
+              disabled={isProcessing}
+              className="w-full bg-blue-600 text-white py-5 rounded-2xl font-bold text-lg hover:bg-blue-700 transition-all shadow-xl shadow-blue-100 flex items-center justify-center gap-3"
+            >
+              {isProcessing ? (
+                <div className="w-6 h-6 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+              ) : (
+                <>
+                  Register Now
+                  <ArrowRight className="w-5 h-5" />
+                </>
+              )}
+            </button>
+          </form>
+
+          <p className="mt-8 text-center text-sm text-gray-500">
+            By registering, you agree to receive webinar updates via email and WhatsApp.
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const AdminCRM = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [crmData, setCrmData] = useState<any[]>([]);
+  const [webinarData, setWebinarData] = useState<any[]>([]);
+  const [activeTab, setActiveTab] = useState<"leads" | "webinar" | "docs">("leads");
 
   useEffect(() => {
     const data = JSON.parse(localStorage.getItem("crm_data") || "[]");
+    const wData = JSON.parse(localStorage.getItem("webinar_registrations") || "[]");
     setCrmData(data);
+    setWebinarData(wData);
   }, [isLoggedIn]);
 
   const handleLogin = (e: React.FormEvent) => {
@@ -1196,7 +1767,10 @@ const AdminCRM = () => {
     <section id="admin" className="py-24 px-4 bg-gray-50 min-h-screen">
       <div className="max-w-7xl mx-auto">
         <div className="flex justify-between items-center mb-12">
-          <h2 className="text-4xl font-bold text-gray-900">Admin Dashboard (CRM)</h2>
+          <div>
+            <h2 className="text-4xl font-bold text-gray-900 mb-2">Admin Dashboard</h2>
+            <p className="text-gray-600">Monitor leads and manage your consulting business.</p>
+          </div>
           <button 
             onClick={() => setIsLoggedIn(false)}
             className="bg-red-500 text-white px-6 py-2 rounded-xl font-bold hover:bg-red-600 transition-all"
@@ -1205,76 +1779,152 @@ const AdminCRM = () => {
           </button>
         </div>
 
-        <div className="grid lg:grid-cols-3 gap-8 mb-12">
-          <div className="bg-white p-8 rounded-[32px] shadow-lg border border-gray-100">
-            <h3 className="text-gray-500 font-bold uppercase tracking-widest text-xs mb-2">Total Leads</h3>
-            <p className="text-4xl font-bold text-blue-600">{crmData.length}</p>
-          </div>
-          <div className="bg-white p-8 rounded-[32px] shadow-lg border border-gray-100">
-            <h3 className="text-gray-500 font-bold uppercase tracking-widest text-xs mb-2">Students</h3>
-            <p className="text-4xl font-bold text-indigo-600">
-              {crmData.filter(d => d.experienceType === "fresh-graduate").length}
-            </p>
-          </div>
-          <div className="bg-white p-8 rounded-[32px] shadow-lg border border-gray-100">
-            <h3 className="text-gray-500 font-bold uppercase tracking-widest text-xs mb-2">Experienced</h3>
-            <p className="text-4xl font-bold text-green-600">
-              {crmData.filter(d => d.experienceType === "experienced").length}
-            </p>
-          </div>
+        <div className="flex gap-4 mb-8">
+          <button 
+            onClick={() => setActiveTab("leads")}
+            className={`px-8 py-3 rounded-2xl font-bold transition-all ${
+              activeTab === "leads" ? "bg-blue-600 text-white shadow-lg shadow-blue-100" : "bg-white text-gray-600 hover:bg-gray-50"
+            }`}
+          >
+            Consulting Leads
+          </button>
+          <button 
+            onClick={() => setActiveTab("webinar")}
+            className={`px-8 py-3 rounded-2xl font-bold transition-all ${
+              activeTab === "webinar" ? "bg-blue-600 text-white shadow-lg shadow-blue-100" : "bg-white text-gray-600 hover:bg-gray-50"
+            }`}
+          >
+            Webinar Registrations
+          </button>
+          <button 
+            onClick={() => setActiveTab("docs")}
+            className={`px-8 py-3 rounded-2xl font-bold transition-all ${
+              activeTab === "docs" ? "bg-blue-600 text-white shadow-lg shadow-blue-100" : "bg-white text-gray-600 hover:bg-gray-50"
+            }`}
+          >
+            Docs & Prompts
+          </button>
         </div>
 
-        <div className="bg-white rounded-[40px] shadow-xl border border-gray-100 overflow-hidden mb-12">
-          <div className="overflow-x-auto">
-            <table className="w-full text-left">
-              <thead>
-                <tr className="bg-gray-50 border-b border-gray-100">
-                  <th className="px-8 py-6 text-sm font-bold text-gray-900">Date</th>
-                  <th className="px-8 py-6 text-sm font-bold text-gray-900">Name</th>
-                  <th className="px-8 py-6 text-sm font-bold text-gray-900">Type</th>
-                  <th className="px-8 py-6 text-sm font-bold text-gray-900">Contact</th>
-                  <th className="px-8 py-6 text-sm font-bold text-gray-900">Message</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-gray-100">
-                {crmData.length === 0 ? (
-                  <tr>
-                    <td colSpan={5} className="px-8 py-12 text-center text-gray-500 italic">
-                      No leads found yet.
-                    </td>
+        {activeTab === "leads" && (
+          <>
+            <div className="grid lg:grid-cols-3 gap-8 mb-12">
+              <div className="bg-white p-8 rounded-[32px] shadow-lg border border-gray-100">
+                <h3 className="text-gray-500 font-bold uppercase tracking-widest text-xs mb-2">Total Leads</h3>
+                <p className="text-4xl font-bold text-blue-600">{crmData.length}</p>
+              </div>
+              <div className="bg-white p-8 rounded-[32px] shadow-lg border border-gray-100">
+                <h3 className="text-gray-500 font-bold uppercase tracking-widest text-xs mb-2">Students</h3>
+                <p className="text-4xl font-bold text-indigo-600">
+                  {crmData.filter(d => d.experienceType === "fresh-graduate").length}
+                </p>
+              </div>
+              <div className="bg-white p-8 rounded-[32px] shadow-lg border border-gray-100">
+                <h3 className="text-gray-500 font-bold uppercase tracking-widest text-xs mb-2">Experienced</h3>
+                <p className="text-4xl font-bold text-green-600">
+                  {crmData.filter(d => d.experienceType === "experienced").length}
+                </p>
+              </div>
+            </div>
+
+            <div className="bg-white rounded-[40px] shadow-xl border border-gray-100 overflow-hidden mb-12">
+              <div className="overflow-x-auto">
+                <table className="w-full text-left">
+                  <thead>
+                    <tr className="bg-gray-50 border-b border-gray-100">
+                      <th className="px-8 py-6 text-sm font-bold text-gray-900">Date</th>
+                      <th className="px-8 py-6 text-sm font-bold text-gray-900">Name</th>
+                      <th className="px-8 py-6 text-sm font-bold text-gray-900">Type</th>
+                      <th className="px-8 py-6 text-sm font-bold text-gray-900">Contact</th>
+                      <th className="px-8 py-6 text-sm font-bold text-gray-900">Message</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-gray-100">
+                    {crmData.length === 0 ? (
+                      <tr>
+                        <td colSpan={5} className="px-8 py-12 text-center text-gray-500 italic">
+                          No leads found yet.
+                        </td>
+                      </tr>
+                    ) : (
+                      crmData.sort((a, b) => b.id - a.id).map((lead) => (
+                        <tr key={lead.id} className="hover:bg-gray-50 transition-colors">
+                          <td className="px-8 py-6 text-sm text-gray-600">
+                            {new Date(lead.timestamp).toLocaleDateString()}
+                          </td>
+                          <td className="px-8 py-6 font-bold text-gray-900">{lead.name}</td>
+                          <td className="px-8 py-6">
+                            <span className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase ${
+                              lead.experienceType === "fresh-graduate" ? "bg-blue-100 text-blue-600" : "bg-indigo-100 text-indigo-600"
+                            }`}>
+                              {lead.experienceLabel}
+                            </span>
+                          </td>
+                          <td className="px-8 py-6 text-sm text-gray-600">
+                            <div className="flex flex-col gap-1">
+                              <span className="flex items-center gap-1"><Send className="w-3 h-3" /> {lead.email}</span>
+                              <span className="flex items-center gap-1"><Phone className="w-3 h-3" /> {lead.phone}</span>
+                            </div>
+                          </td>
+                          <td className="px-8 py-6 text-sm text-gray-600 max-w-xs truncate">
+                            {lead.message}
+                          </td>
+                        </tr>
+                      ))
+                    )}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </>
+        )}
+
+        {activeTab === "webinar" && (
+          <div className="bg-white rounded-[40px] shadow-xl border border-gray-100 overflow-hidden mb-12">
+            <div className="p-8 border-b border-gray-100 flex justify-between items-center">
+              <h3 className="text-2xl font-bold text-gray-900">Webinar Registrations</h3>
+              <div className="bg-blue-50 text-blue-600 px-4 py-2 rounded-xl font-bold text-sm">
+                {webinarData.length} Registrations
+              </div>
+            </div>
+            <div className="overflow-x-auto">
+              <table className="w-full text-left">
+                <thead>
+                  <tr className="bg-gray-50 border-b border-gray-100">
+                    <th className="px-8 py-6 text-sm font-bold text-gray-900">Date</th>
+                    <th className="px-8 py-6 text-sm font-bold text-gray-900">Full Name</th>
+                    <th className="px-8 py-6 text-sm font-bold text-gray-900">Email</th>
+                    <th className="px-8 py-6 text-sm font-bold text-gray-900">Phone</th>
                   </tr>
-                ) : (
-                  crmData.sort((a, b) => b.id - a.id).map((lead) => (
-                    <tr key={lead.id} className="hover:bg-gray-50 transition-colors">
-                      <td className="px-8 py-6 text-sm text-gray-600">
-                        {new Date(lead.timestamp).toLocaleDateString()}
-                      </td>
-                      <td className="px-8 py-6 font-bold text-gray-900">{lead.name}</td>
-                      <td className="px-8 py-6">
-                        <span className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase ${
-                          lead.experienceType === "fresh-graduate" ? "bg-blue-100 text-blue-600" : "bg-indigo-100 text-indigo-600"
-                        }`}>
-                          {lead.experienceLabel}
-                        </span>
-                      </td>
-                      <td className="px-8 py-6 text-sm text-gray-600">
-                        <div className="flex flex-col gap-1">
-                          <span className="flex items-center gap-1"><Send className="w-3 h-3" /> {lead.email}</span>
-                          <span className="flex items-center gap-1"><Phone className="w-3 h-3" /> {lead.phone}</span>
-                        </div>
-                      </td>
-                      <td className="px-8 py-6 text-sm text-gray-600 max-w-xs truncate">
-                        {lead.message}
+                </thead>
+                <tbody className="divide-y divide-gray-100">
+                  {webinarData.length === 0 ? (
+                    <tr>
+                      <td colSpan={4} className="px-8 py-12 text-center text-gray-500 italic">
+                        No registrations found yet.
                       </td>
                     </tr>
-                  ))
-                )}
-              </tbody>
-            </table>
+                  ) : (
+                    webinarData.sort((a, b) => b.id - a.id).map((reg) => (
+                      <tr key={reg.id} className="hover:bg-gray-50 transition-colors">
+                        <td className="px-8 py-6 text-sm text-gray-600">
+                          {new Date(reg.timestamp).toLocaleDateString()}
+                        </td>
+                        <td className="px-8 py-6 font-bold text-gray-900">{reg.name}</td>
+                        <td className="px-8 py-6 text-sm text-gray-600">{reg.email}</td>
+                        <td className="px-8 py-6 text-sm text-gray-600">{reg.phone}</td>
+                      </tr>
+                    ))
+                  )}
+                </tbody>
+              </table>
+            </div>
           </div>
-        </div>
+        )}
 
-        <div className="bg-white p-12 rounded-[40px] shadow-xl border border-gray-100 mb-12">
+        {activeTab === "docs" && (
+          <>
+            <div className="bg-white p-12 rounded-[40px] shadow-xl border border-gray-100 mb-12">
           <h3 className="text-3xl font-bold text-gray-900 mb-8 flex items-center gap-3">
             <Zap className="w-8 h-8 text-yellow-500" />
             Future Scope & Roadmap
@@ -1445,9 +2095,11 @@ Path to Europe Consulting is a full-stack web application designed to help profe
             </div>
           </div>
         </div>
-      </div>
-    </section>
-  );
+      </>
+    )}
+  </div>
+</section>
+);
 };
 
 const LandingPage = () => (
@@ -1456,12 +2108,14 @@ const LandingPage = () => (
     <main>
       <Hero />
       <Services />
-      <Gallery />
       <Pricing />
+      <Webinar />
       <Docs />
       <Guidance />
-      <Testimonials />
       <About />
+      <Gallery />
+      <Testimonials />
+      <FAQ />
       <FooterBanner />
     </main>
     <Footer />
@@ -1475,6 +2129,8 @@ export default function App() {
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="/admin" element={<AdminCRM />} />
+          <Route path="/payment" element={<PaymentPage />} />
+          <Route path="/register" element={<WebinarRegistrationPage />} />
         </Routes>
       </div>
     </HashRouter>

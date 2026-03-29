@@ -31,7 +31,8 @@ For a technical deep dive, here is the breakdown of the project's organization a
 ### Source Directory (`/src`)
 - **`main.tsx`**: The application entry point that bootstraps the React app into the DOM.
 - **`App.tsx`**: The "God Component" of this single-page application. It contains:
-  - **Routing**: Uses `react-router-dom` (HashRouter) to separate the Landing Page (`/`) from the Admin Dashboard (`/admin`). HashRouter is used to ensure compatibility with GitHub Pages and other static hosting environments.
+  - **Routing**: Uses `react-router-dom` (HashRouter) to separate the Landing Page (`/`), the Admin Dashboard (`/admin`), and the Payment Page (`/payment`). HashRouter is used to ensure compatibility with GitHub Pages and other static hosting environments.
+- **Payment Integration:** A secure payment page with UPI integration (Mobile: 9000668360), QR code generation, and dynamic discount application.
   - **State Management**: Handles active navigation sections, form validation logic, and promo code application.
   - **Component Architecture**: Modularized sub-components (Navbar, Hero, Services, Docs, AdminCRM, etc.) defined within the same file for rapid iteration and performance.
   - **Animation Logic**: Implementation of `motion` (Framer Motion) for scroll-reveal and hover effects.
@@ -45,6 +46,10 @@ For a technical deep dive, here is the breakdown of the project's organization a
 - **Dynamic Navbar:** Smooth scrolling with `IntersectionObserver` logic (simulated via scroll event listener) for active section highlighting.
 - **Form Engine:** Custom-built validation engine with real-time feedback and `mailto` protocol integration for zero-backend lead generation.
 - **Admin CRM:** A secure dashboard for monitoring leads, with breakdown by category (Students vs. Experienced) and detailed lead information. Now hosted on a separate `#/admin` route (using HashRouter).
+- **Payment Gateway:** A dedicated `#/payment` route for handling enrollments with UPI support, bank details, and promo code validation. Now accessible via a direct "Payment" tab in the navigation bar.
+- **Payment Verification:** Added a mandatory bold message on the payment page requiring users to send a screenshot for activation and portal access.
+- **Webinar & Registration:** New registration page (`#/register`) for live weekend sessions (Sat/Sun, 5-6 PM IST) with integrated Google Calendar, Google Meet link (`meet.google.com/gyw-fqrm-vbg`), and WhatsApp Group (`chat.whatsapp.com/K5ocM7obWynAUnCg3CalBE`).
+- **Admin CRM Enhancements:** Tabbed dashboard for monitoring leads and webinar registrations separately.
 - **Roadmap & Future Scope:** Detailed plan for future enhancements including AI Chatbots, Google Sheets integration, and automated follow-ups.
 - **Discount Code System:** Dynamic pricing updates based on promo codes (`StudentOffer`, `ExperiencedOffer`).
 - **Responsive UI:** Implemented using Tailwind's utility-first classes with a mobile-first breakpoint strategy.
@@ -52,8 +57,8 @@ For a technical deep dive, here is the breakdown of the project's organization a
 
 ## Timestamps
 - **Documentation Generated:** Thu, 26 Mar 2026 10:42:04 UTC
-- **Last Updated:** Sun, 29 Mar 2026 16:15:00 UTC
-- **GitHub Synced:** Sun, 29 Mar 2026 16:15:00 UTC
+- **Last Updated:** Sun, 29 Mar 2026 16:56:36 UTC
+- **GitHub Synced:** Sun, 29 Mar 2026 16:56:36 UTC
 
 ## Prompt History Summary
 1. **Initial Build:** Create a consulting website for European career paths.
@@ -73,6 +78,12 @@ For a technical deep dive, here is the breakdown of the project's organization a
     - Integrated `react-router-dom` for true multi-page navigation.
     - Moved Admin CRM to a dedicated `/admin` route that opens in a new tab.
     - Added a "Future Scope & Roadmap" section to the Admin panel with plans for Google Sheets integration, AI Chatbots, and automated marketing.
+15. **Registration & Webinar Enhancements:**
+    - Created a dedicated registration page (`#/register`) with full name, email, and phone capture.
+    - Integrated registration data into the Admin CRM with a new tabbed navigation system.
+    - Added automated success flow with WhatsApp group links and calendar integration.
+    - Updated the Webinar section with direct Google Meet and Calendar links.
+    - Corrected all UPI and bank transfer details on the payment page.
 
 ---
 *Made with ❤️ from Sudhir Kumar Thanna to everyone*
