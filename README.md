@@ -1,20 +1,33 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# Path2Europe Consulting
 
-# Run and deploy your AI Studio app
+Path2Europe is a professional consulting platform designed to help students and experienced professionals navigate their career journeys to Europe. Specializing in Salesforce training, AI-driven job search optimization, and cultural integration, we provide a comprehensive roadmap to global success.
 
-This contains everything you need to run your app locally.
+## Key Features
+- **Dynamic Landing Page**: Modern, responsive design with smooth scrolling and interactive sections.
+- **Consulting Packages**: Tailored plans for fresh graduates and experienced professionals.
+- **Webinar Registration**: Integrated registration for live weekend sessions.
+- **Secure Payment Gateway**: UPI-integrated payment flow with dynamic discount codes.
+- **Admin CRM**: A secure dashboard for monitoring leads and registrations.
+- **Resource Center**: Free guides, resume samples, and official government links.
 
-View your app in AI Studio: https://ai.studio/apps/0351ba0a-2174-4ba0-a9a3-0b417de13565
+## Getting Started
+1. **Explore Services**: Check out our specialized offerings for students and professionals.
+2. **Register for Webinar**: Join our live sessions to learn more about the European job market.
+3. **Enroll in a Package**: Choose a plan that fits your needs and complete the secure payment.
+4. **Access Resources**: Download free templates and guides from our Docs section.
 
-## Run Locally
+## Documentation
+- [Project Documentation](PROJECT_DOCUMENTATION.md)
+- [GitHub Hosting Guide](GITHUB_HOSTING_GUIDE.md)
+- [Firebase Setup Guide](FIREBASE_SETUP_GUIDE.md)
+- [AI Prompt History](prompts.md)
 
-**Prerequisites:**  Node.js
+## Tech Stack
+- **Frontend**: React 19, Vite 6, Tailwind CSS 4, Framer Motion.
+- **Routing**: React Router Dom (HashRouter).
+- **Icons**: Lucide React.
+- **Animations**: Motion (Framer Motion).
 
-
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+---
+*Created with ❤️ by Sudhir Kumar Thanna*
+*Last Updated: Sun, 29 Mar 2026 17:13:38 UTC*

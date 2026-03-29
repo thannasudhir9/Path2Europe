@@ -71,6 +71,7 @@ const Navbar = () => {
   const navLinks = [
     { name: "Services", href: "#services", id: "services" },
     { name: "Pricing", href: "#pricing", id: "pricing" },
+    { name: "Payment", href: "/payment", id: "payment" },
     { name: "Webinar", href: "#webinar", id: "webinar" },
     { name: "Docs", href: "#docs", id: "docs" },
     { name: "About", href: "#about", id: "about" },
@@ -131,21 +132,15 @@ const Navbar = () => {
             >
               Admin
             </Link>
-            <Link 
-              to="/payment" 
-              className="relative py-2 transition-colors hover:text-blue-600"
-            >
-              Payment
-            </Link>
             <button 
               onClick={() => {
                 if (!isHome) {
                   navigate("/");
                   setTimeout(() => {
-                    document.getElementById('contact-form')?.scrollIntoView({ behavior: 'smooth' });
+                    document.getElementById('webinar')?.scrollIntoView({ behavior: 'smooth' });
                   }, 100);
                 } else {
-                  document.getElementById('contact-form')?.scrollIntoView({ behavior: 'smooth' });
+                  document.getElementById('webinar')?.scrollIntoView({ behavior: 'smooth' });
                 }
               }}
               className="bg-blue-600 text-white px-5 py-2 rounded-full hover:bg-blue-700 transition-all shadow-lg shadow-blue-200"
@@ -260,6 +255,9 @@ const Pricing = () => {
     } else if (promoCode === "ExperiencedOffer") {
       setAppliedPromo("ExperiencedOffer");
       setDiscount(2999);
+    } else if (promoCode === "AdminOffer") {
+      setAppliedPromo("AdminOffer");
+      setDiscount(4999);
     } else {
       alert("Invalid Promo Code");
       setAppliedPromo(null);
@@ -268,6 +266,16 @@ const Pricing = () => {
   };
 
   const handleUpgrade = (pkgName: string, basePrice: number, promo: string | null) => {
+    // Validation logic for promos
+    if (promo === "StudentOffer" && pkgName === "Experienced Pro (Mentorship)") {
+      alert("StudentOffer is not applicable for Experienced Pro package.");
+      return;
+    }
+    if (promo === "ExperiencedOffer" && pkgName === "Advanced Training (Freshers)") {
+      alert("ExperiencedOffer is not applicable for Advanced Training package.");
+      return;
+    }
+
     navigate("/payment", { 
       state: { 
         packageName: pkgName, 
@@ -385,6 +393,9 @@ const Pricing = () => {
             <div className="mb-6">
               <h3 className="text-lg font-bold mb-1">Advanced Training</h3>
               <p className="text-blue-100 text-xs">For Fresh Graduates</p>
+              <p className="text-[10px] mt-1 font-bold text-yellow-300 uppercase tracking-wider">
+                30 Days Training (Sat & Sun)
+              </p>
             </div>
             <div className="mb-6">
               <span className="text-3xl font-extrabold">
@@ -393,29 +404,38 @@ const Pricing = () => {
                     <span className="line-through text-blue-300 text-xl mr-2">₹4,999</span>
                     ₹3,000
                   </>
+                ) : appliedPromo === "AdminOffer" ? (
+                  <>
+                    <span className="line-through text-blue-300 text-xl mr-2">₹4,999</span>
+                    ₹0
+                  </>
                 ) : "₹4,999"}
               </span>
             </div>
             <ul className="space-y-3 mb-8 flex-grow">
               <li className="flex items-center gap-2 text-blue-50 text-xs">
                 <CheckCircle2 className="w-4 h-4 text-blue-200" />
-                Salesforce trainings, demos, videos, hands on training
+                Salesforce, Java, Python, SQL & AI Basics
               </li>
               <li className="flex items-center gap-2 text-blue-50 text-xs">
                 <CheckCircle2 className="w-4 h-4 text-blue-200" />
-                Latest AI tools and collaborative use cases
+                Vibe Coding & Agentic World of AI
               </li>
               <li className="flex items-center gap-2 text-blue-50 text-xs">
                 <CheckCircle2 className="w-4 h-4 text-blue-200" />
-                Real-time scenarios and projects
+                Technical, HR & Director Round Prep
               </li>
               <li className="flex items-center gap-2 text-blue-50 text-xs">
                 <CheckCircle2 className="w-4 h-4 text-blue-200" />
                 Ready for real-time projects & market
               </li>
+              <li className="flex items-center gap-2 text-blue-50 text-xs font-bold">
+                <CheckCircle2 className="w-4 h-4 text-yellow-300" />
+                Lifetime access to recordings & docs
+              </li>
             </ul>
             <button 
-              onClick={() => handleUpgrade("Advanced Training (Freshers)", 4999, appliedPromo === "StudentOffer" ? "StudentOffer" : null)}
+              onClick={() => handleUpgrade("Advanced Training (Freshers)", 4999, appliedPromo === "StudentOffer" || appliedPromo === "AdminOffer" ? appliedPromo : null)}
               className="w-full py-3 bg-white text-blue-600 font-bold rounded-xl hover:bg-blue-50 transition-all text-sm"
             >
               Upgrade Now
@@ -438,21 +458,26 @@ const Pricing = () => {
                     <span className="line-through text-gray-500 text-xl mr-2">₹24,999</span>
                     ₹22,000
                   </>
+                ) : appliedPromo === "AdminOffer" ? (
+                  <>
+                    <span className="line-through text-gray-500 text-xl mr-2">₹24,999</span>
+                    ₹20,000
+                  </>
                 ) : "₹24,999"}
               </span>
             </div>
             <ul className="space-y-3 mb-8 flex-grow">
               <li className="flex items-center gap-2 text-gray-300 text-xs">
                 <CheckCircle2 className="w-4 h-4 text-blue-400" />
-                EU Plan and Blue Card Strategy
+                EU Plan, Blue Card & Agentic AI Strategy
               </li>
               <li className="flex items-center gap-2 text-gray-300 text-xs">
                 <CheckCircle2 className="w-4 h-4 text-blue-400" />
-                Job Search, LinkedIn, AI Searching Optimization
+                Tech, HR & Director Round Interview Prep
               </li>
               <li className="flex items-center gap-2 text-gray-300 text-xs">
                 <CheckCircle2 className="w-4 h-4 text-blue-400" />
-                AI Tools and planning ahead for future
+                Java, Python, SQL & AI Advanced Topics
               </li>
               <li className="flex items-center gap-2 text-gray-300 text-xs">
                 <CheckCircle2 className="w-4 h-4 text-blue-400" />
@@ -465,7 +490,7 @@ const Pricing = () => {
               </li>
             </ul>
             <button 
-              onClick={() => handleUpgrade("Experienced Pro (Mentorship)", 24999, appliedPromo === "ExperiencedOffer" ? "ExperiencedOffer" : null)}
+              onClick={() => handleUpgrade("Experienced Pro (Mentorship)", 24999, appliedPromo === "ExperiencedOffer" || appliedPromo === "AdminOffer" ? appliedPromo : null)}
               className="w-full py-3 bg-blue-600 text-white font-bold rounded-xl hover:bg-blue-700 transition-all text-sm"
             >
               Start Mentorship
@@ -514,7 +539,22 @@ const Services = () => (
     <div className="max-w-7xl mx-auto">
       <div className="text-center mb-16">
         <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">What We Offer</h2>
-        <div className="w-20 h-1.5 bg-blue-600 mx-auto rounded-full" />
+        <div className="w-20 h-1.5 bg-blue-600 mx-auto rounded-full mb-8" />
+        
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="max-w-3xl mx-auto bg-blue-50 p-8 rounded-[32px] border border-blue-100 shadow-sm mb-16"
+        >
+          <p className="text-lg md:text-xl text-blue-900 font-medium leading-relaxed italic">
+            "Give me just <span className="text-blue-600 font-bold">1 week (7 days)</span> of your time, and I will transform your understanding of real-time projects, workspace dynamics, and professional culture. I guarantee your IT knowledge will go from <span className="text-blue-600 font-bold">0 to Hero</span>."
+          </p>
+          <div className="mt-4 flex items-center justify-center gap-2 text-blue-600 font-bold">
+            <Sparkles className="w-5 h-5" />
+            <span>Our Professional Guarantee</span>
+          </div>
+        </motion.div>
       </div>
       <div className="grid md:grid-cols-2 gap-8">
         <ServiceCard 
@@ -522,11 +562,11 @@ const Services = () => (
           badge="Fresh Graduates"
           icon={GraduationCap}
           items={[
-            "Salesforce trainings, demos, videos, hands on training",
-            "Latest AI tools and collaborative use cases in real world",
+            "Basics of Java, Python, SQL & AI",
+            "Salesforce, Vibe Coding & Agentic AI",
+            "Interview Prep: Technical, HR & Director Rounds",
             "Real time scenarios and projects which I have worked on",
             "Make students ready for real time projects, real market outside",
-            "Specialized study paths for the new AI world",
             "IT Real-world employee scenarios (Germany, India, Italy)"
           ]}
         />
@@ -535,10 +575,10 @@ const Services = () => (
           badge="Professional Growth"
           icon={Briefcase}
           items={[
-            "How to plan for future with your Experience",
-            "Job Search, LinkedIn Optimization, AI Searching features",
-            "EU Plan and Blue Card Strategy",
-            "AI Tools and planning ahead for future",
+            "Advanced Java, Python, SQL & AI Topics",
+            "Agentic World of AI & Future Tech Planning",
+            "Interview Mastery: Technical, HR & Director Rounds",
+            "EU Plan, Blue Card Strategy & LinkedIn Optimization",
             "Optimise the resume for multiple EU Countries",
             "Interview Preparation for European Markets"
           ]}
@@ -1309,22 +1349,43 @@ const Footer = () => (
 const PaymentPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { packageName, price, appliedPromo: initialPromo } = location.state || { packageName: "Consulting Package", price: 0, appliedPromo: null };
+  
+  // Default to Experienced Pro if accessed directly
+  const { packageName, price, appliedPromo: initialPromo } = location.state || { 
+    packageName: "Experienced Pro (Mentorship)", 
+    price: 24999, 
+    appliedPromo: null 
+  };
   
   const [promoCode, setPromoCode] = useState("");
   const [appliedPromo, setAppliedPromo] = useState<string | null>(initialPromo);
-  const [discount, setDiscount] = useState(initialPromo === "StudentOffer" ? 1999 : initialPromo === "ExperiencedOffer" ? 2999 : 0);
+  const [discount, setDiscount] = useState(
+    initialPromo === "StudentOffer" ? 1999 : 
+    initialPromo === "ExperiencedOffer" ? 2999 : 
+    initialPromo === "AdminOffer" ? 4999 : 0
+  );
   const [isProcessing, setIsProcessing] = useState(false);
 
   const finalPrice = price - discount;
 
   const handleApplyPromo = () => {
     if (promoCode === "StudentOffer") {
+      if (packageName === "Experienced Pro (Mentorship)") {
+        alert("StudentOffer is not applicable for Experienced Pro package.");
+        return;
+      }
       setAppliedPromo("StudentOffer");
       setDiscount(1999);
     } else if (promoCode === "ExperiencedOffer") {
+      if (packageName === "Advanced Training (Freshers)") {
+        alert("ExperiencedOffer is not applicable for Advanced Training package.");
+        return;
+      }
       setAppliedPromo("ExperiencedOffer");
       setDiscount(2999);
+    } else if (promoCode === "AdminOffer") {
+      setAppliedPromo("AdminOffer");
+      setDiscount(4999);
     } else {
       alert("Invalid Promo Code");
     }
@@ -1333,17 +1394,6 @@ const PaymentPage = () => {
   const upiId = "9000668360@jupiteraxis";
   const upiLink = `upi://pay?pa=${upiId}&pn=ThannaSudhirKumar&am=${finalPrice}&cu=INR`;
   const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(upiLink)}`;
-
-  if (!packageName || price === 0) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50 p-4">
-        <div className="text-center">
-          <h2 className="text-2xl font-bold mb-4">No package selected</h2>
-          <button onClick={() => navigate("/")} className="text-blue-600 font-bold hover:underline">Go back to Home</button>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="min-h-screen bg-gray-50 pt-32 pb-24 px-4">

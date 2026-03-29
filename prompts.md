@@ -1,4 +1,4 @@
-# AI Prompt History: Path to Europe Consulting
+# AI Prompt History: Path2Europe Consulting
 
 This file tracks the evolution of the project through natural language prompts.
 
@@ -63,5 +63,30 @@ This file tracks the evolution of the project through natural language prompts.
     - Added a mandatory bold message on the payment page: "**Please send a screenshot of the payment once done, so that we can activate you and give access to the portal for all access.**"
     - Added the official email ID (`pathtoeurope.eu@gmail.com`) to the "Need Help?" section on the payment page.
 
+21. **Discount & Navigation Refinement**:
+    - Implemented package-specific discount code restrictions: `ExperiencedOffer` is not applicable to "Advanced Training (Freshers)", and `StudentOffer` is not applicable to "Experienced Pro (Mentorship)".
+    - Added a hidden `AdminOffer` discount code (₹4999 off).
+    - Modified the "Get Started" button in the Navbar to navigate directly to the Webinar section.
+    - Reordered the navigation bar to place the "Payment" tab beside "Pricing".
+    - Fixed the Payment page to display correct default content when accessed directly.
+    - Moved "Gallery", "Testimonials", and "FAQ" to the bottom of the landing page and the rightmost part of the navigation.
+
+22. **App Branding & Documentation**:
+    - Updated the application name to **Path2Europe** in `index.html` and `metadata.json`.
+    - Created a comprehensive `README.md` for the project.
+    - Added a detailed `FIREBASE_SETUP_GUIDE.md` with step-by-step instructions for Firebase integration.
+    - Updated `PROJECT_DOCUMENTATION.md` and `prompts.md` with the latest details and timestamps.
+
+23. **Training & Guarantee Update**:
+    - Updated "Advanced Training (Freshers)" to specify 30-day duration (Sat/Sun) and lifetime access to recordings/docs.
+    - Added a prominent "0 to Hero" professional guarantee section to the Services area.
+    - Updated documentation and timestamps.
+
+24. **Expanded Scope & Interview Prep**:
+    - Expanded technical training to include Java, Python, SQL, and AI basics.
+    - Added focus on "Vibe Coding" and "Agentic AI".
+    - Included comprehensive interview preparation for Technical, HR, and Director rounds.
+    - Updated documentation and timestamps.
+
 ---
-*Last Updated: Sun, 29 Mar 2026 16:56:36 UTC*
+*Last Updated: Sun, 29 Mar 2026 17:22:19 UTC*
