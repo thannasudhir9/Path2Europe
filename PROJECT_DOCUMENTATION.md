@@ -47,9 +47,15 @@ For a technical deep dive, here is the breakdown of the project's organization a
 - Contains static assets like the favicon and any images that are not processed by the Vite build pipeline.
 
 ## Key Features
-- **Expanded Technical Scope**: Training now includes basics of Java, Python, SQL, and AI, alongside Salesforce.
-- **AI & Vibe Coding**: Specialized focus on "Vibe Coding" and the "Agentic World of AI" to keep students ahead of the curve.
-- **Interview Preparation**: Comprehensive prep for Technical, HR, and Director rounds.
+- **Dark Mode Support**: Integrated theme toggle for light and dark modes with smooth transitions.
+- **Payment Tab**: Fixed navigation for the Payment tab in the navbar, and added an interactive package selection feature on the payment page.
+- **Advanced Discount Logic**:
+    - `StudentOffer`: ₹1999 off for Freshers.
+    - `ExperiencedOffer`: ₹2999 off for Pros.
+    - `AdminOffer`: Stackable-style discount (₹500 extra off on top of standard offers).
+    - `GroupOffer`: Special pricing for groups of 10 students (₹4999 -> ₹1999).
+    - `TestOffer`: Hidden code for testing (₹0 payment).
+- **Transparent Pricing**: Visible promo codes on the home page.
 - **Advanced Training (Freshers)**: 30-day training program held on Saturdays and Sundays. Includes lifetime access to all video recordings, documentation, and resources.
 - **Professional Guarantee**: A commitment to transform IT knowledge from "0 to Hero" in just 7 days of focused engagement.
 - **Dynamic Navbar:** Smooth scrolling with `IntersectionObserver` logic (simulated via scroll event listener) for active section highlighting.
@@ -66,8 +72,8 @@ For a technical deep dive, here is the breakdown of the project's organization a
 
 ## Timestamps
 - **Documentation Generated:** Thu, 26 Mar 2026 10:42:04 UTC
-- **Last Updated:** Sun, 29 Mar 2026 17:22:19 UTC
-- **GitHub Synced:** Sun, 29 Mar 2026 17:22:19 UTC
+- **Last Updated:** Mon, 30 Mar 2026 12:04:26 UTC
+- **GitHub Synced:** Mon, 30 Mar 2026 12:04:26 UTC
 
 ## Prompt History Summary
 1. **Initial Build:** Create a consulting website for European career paths.

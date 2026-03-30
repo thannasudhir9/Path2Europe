@@ -88,5 +88,28 @@ This file tracks the evolution of the project through natural language prompts.
     - Included comprehensive interview preparation for Technical, HR, and Director rounds.
     - Updated documentation and timestamps.
 
+25. **Dark Mode & Advanced Discounts**:
+    - Added dark mode toggle in the top right.
+    - Updated `AdminOffer` to stack ₹500 extra discount on top of `StudentOffer`/`ExperiencedOffer`.
+    - Added hidden `TestOffer` (₹0) and `GroupOffer` (₹1999 for Freshers).
+    - Displayed visible promo codes in the Pricing section.
+    - Updated documentation and timestamps.
+
+26. **Payment Tab & Theme Fixes**:
+    - Fixed Payment tab navigation to work correctly with `HashRouter`.
+    - Improved theme transition smoothness and enabled class-based dark mode in Tailwind 4.
+    - Updated documentation and timestamps.
+
+27. **Package Selection in Payment Page**:
+    - Added an interactive package selection section to the Payment page.
+    - Users can switch between "Advanced Training (Freshers)" and "Experienced Pro (Mentorship)".
+    - Prices and applied discounts update automatically based on the selected package.
+    - Improved dark mode styling for the Payment page.
+
+28. **Fixing Blank Pages & Updating Docs:**
+    - Fixed an issue where all pages were blank and white, except for the payment page.
+    - Refactored `App.tsx` to ensure consistent dark mode styling and remove unused hooks (`useWindowSize`, `useStore`).
+    - Updated all documentation files with the current date and time (Mon, 30 Mar 2026 12:04:26 UTC).
+
 ---
-*Last Updated: Sun, 29 Mar 2026 17:22:19 UTC*
+*Last Updated: Mon, 30 Mar 2026 12:04:26 UTC*
