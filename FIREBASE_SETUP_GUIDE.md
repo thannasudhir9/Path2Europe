@@ -95,5 +95,5 @@ This guide provides detailed steps to connect and use Firebase with your Path2Eu
 3. Click **Publish**.
 
 ---
-*Guide created on Mon, 30 Mar 2026 12:04:26 UTC*
+*Guide created on Mon, 30 Mar 2026 12:20:04 UTC*
 *Made with ❤️ from Sudhir Kumar Thanna to everyone*

@@ -38,13 +38,16 @@ import {
   Mail,
   Zap,
   Sun,
-  Moon
+  Moon,
+  Menu,
+  X
 } from "lucide-react";
 import React, { useState, useEffect } from "react";
 import { HashRouter, Routes, Route, Link, useLocation, useNavigate } from "react-router-dom";
 
 const Navbar = ({ darkMode, setDarkMode }: { darkMode: boolean, setDarkMode: (val: boolean) => void }) => {
   const [activeSection, setActiveSection] = useState("hero");
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -73,7 +76,7 @@ const Navbar = ({ darkMode, setDarkMode }: { darkMode: boolean, setDarkMode: (va
   const navLinks = [
     { name: "Services", href: "#services", id: "services", isScroll: true },
     { name: "Pricing", href: "#pricing", id: "pricing", isScroll: true },
-    { name: "Payment", href: "#/payment", id: "payment", isScroll: false },
+    { name: "Payment", href: "/payment", id: "payment", isScroll: false },
     { name: "Webinar", href: "#webinar", id: "webinar", isScroll: true },
     { name: "Docs", href: "#docs", id: "docs", isScroll: true },
     { name: "About", href: "#about", id: "about", isScroll: true },
@@ -83,6 +86,22 @@ const Navbar = ({ darkMode, setDarkMode }: { darkMode: boolean, setDarkMode: (va
   ];
 
   const isHome = location.pathname === "/";
+
+  const handleNavClick = (link: any) => {
+    setIsMenuOpen(false);
+    if (link.isScroll) {
+      if (!isHome) {
+        navigate("/");
+        setTimeout(() => {
+          document.getElementById(link.id)?.scrollIntoView({ behavior: "smooth" });
+        }, 100);
+      } else {
+        document.getElementById(link.id)?.scrollIntoView({ behavior: "smooth" });
+      }
+    } else {
+      navigate(link.href);
+    }
+  };
 
   return (
     <nav className="fixed top-0 w-full bg-white/80 dark:bg-gray-900/80 backdrop-blur-md z-50 border-b border-gray-100 dark:border-gray-800 transition-colors">
@@ -94,6 +113,7 @@ const Navbar = ({ darkMode, setDarkMode }: { darkMode: boolean, setDarkMode: (va
               } else {
                 window.scrollTo({ top: 0, behavior: "smooth" });
               }
+              setIsMenuOpen(false);
             }}
           >
             <Globe className="w-8 h-8 text-blue-600"/>
@@ -101,21 +121,16 @@ const Navbar = ({ darkMode, setDarkMode }: { darkMode: boolean, setDarkMode: (va
               Path2Europe
             </span>
           </div>
-          <div className="hidden md:flex items-center gap-8 text-sm font-medium text-gray-600 dark:text-gray-300">
+
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex items-center gap-6 text-sm font-medium text-gray-600 dark:text-gray-300">
             {navLinks.map((link) => (
-              <a 
+              <button 
                 key={link.id} 
-                href={link.isScroll ? (isHome ? link.href : `#${link.id}`) : link.href} 
+                onClick={() => handleNavClick(link)}
                 className={`relative py-2 transition-colors hover:text-blue-600 dark:hover:text-blue-400 ${
                   activeSection === link.id ? "text-blue-600 dark:text-blue-400" : ""
                 }`} 
-                onClick={(e) => {
-                  if (link.isScroll) {
-                    if (!isHome) return;
-                    e.preventDefault();
-                    document.getElementById(link.id)?.scrollIntoView({ behavior: "smooth" });
-                  }
-                }}
               >
                 {link.name}
                 {activeSection === link.id && (
@@ -125,7 +140,7 @@ const Navbar = ({ darkMode, setDarkMode }: { darkMode: boolean, setDarkMode: (va
                     transition={{ type: "spring", stiffness: 380, damping: 30 }}
                   />
                 )}
-              </a>
+              </button>
             ))}
             
             <button 
@@ -155,8 +170,75 @@ const Navbar = ({ darkMode, setDarkMode }: { darkMode: boolean, setDarkMode: (va
               Get Started
             </button>
           </div>
+
+          {/* Mobile Menu Toggle */}
+          <div className="flex md:hidden items-center gap-4">
+            <button 
+              onClick={() => setDarkMode(!darkMode)}
+              className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+            >
+              {darkMode ? <Sun className="w-5 h-5 text-yellow-400"/> : <Moon className="w-5 h-5 text-gray-600"/>}
+            </button>
+            <button 
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="p-2 text-gray-600 dark:text-gray-300"
+            >
+              {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
+          </div>
         </div>
       </div>
+
+      {/* Mobile Menu Overlay */}
+      {isMenuOpen && (
+        <motion.div 
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="md:hidden bg-white dark:bg-gray-900 border-b border-gray-100 dark:border-gray-800 overflow-y-auto max-h-[calc(100vh-64px)]"
+        >
+          <div className="px-4 pt-2 pb-6 space-y-1">
+            {navLinks.map((link) => (
+              <button
+                key={link.id}
+                onClick={() => handleNavClick(link)}
+                className={`block w-full text-left px-3 py-3 text-base font-medium rounded-md transition-colors ${
+                  activeSection === link.id 
+                    ? "text-blue-600 bg-blue-50 dark:bg-blue-900/20" 
+                    : "text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800"
+                }`}
+              >
+                {link.name}
+              </button>
+            ))}
+            <Link 
+              to="/admin" 
+              target="_blank"
+              onClick={() => setIsMenuOpen(false)}
+              className="block w-full text-left px-3 py-3 text-base font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-md"
+            >
+              Admin Panel
+            </Link>
+            <div className="pt-4 px-3">
+              <button 
+                onClick={() => {
+                  setIsMenuOpen(false);
+                  if (!isHome) {
+                    navigate("/");
+                    setTimeout(() => {
+                      document.getElementById('webinar')?.scrollIntoView({ behavior: 'smooth' });
+                    }, 100);
+                  } else {
+                    document.getElementById('webinar')?.scrollIntoView({ behavior: 'smooth' });
+                  }
+                }}
+                className="w-full bg-blue-600 text-white px-5 py-3 rounded-xl font-semibold hover:bg-blue-700 transition-all shadow-lg shadow-blue-200 dark:shadow-none"
+              >
+                Get Started
+              </button>
+            </div>
+          </div>
+        </motion.div>
+      )}
     </nav>
   );
 };
