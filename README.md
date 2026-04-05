@@ -30,4 +30,4 @@ Path2Europe is a professional consulting platform designed to help students and 
 
 ---
 *Created with ❤️ by Sudhir Kumar Thanna*
-*Last Updated: Mon, 30 Mar 2026 12:20:04 UTC*
+*Last Updated: Sun, 05 Apr 2026 10:18:56 UTC*
